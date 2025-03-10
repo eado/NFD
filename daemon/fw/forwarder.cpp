@@ -112,15 +112,15 @@ Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingr
                   << " nonce=" << nonce);
   }
 
-  // /localhost scope control
-  bool isViolatingLocalhost = ingress.face.getScope() == ndn::nfd::FACE_SCOPE_NON_LOCAL &&
-                              scope_prefix::LOCALHOST.isPrefixOf(interest.getName());
-  if (isViolatingLocalhost) {
-    NFD_LOG_DEBUG("onIncomingInterest in=" << ingress << " interest=" << interest.getName()
-                  << " nonce=" << nonce << " violates /localhost");
-    // drop
-    return;
-  }
+  /* // /localhost scope control */
+  /* bool isViolatingLocalhost = ingress.face.getScope() == ndn::nfd::FACE_SCOPE_NON_LOCAL && */
+  /*                             scope_prefix::LOCALHOST.isPrefixOf(interest.getName()); */
+  /* if (isViolatingLocalhost) { */
+  /*   NFD_LOG_DEBUG("onIncomingInterest in=" << ingress << " interest=" << interest.getName() */
+  /*                 << " nonce=" << nonce << " violates /localhost"); */
+  /*   // drop */
+  /*   return; */
+  /* } */
 
   // detect duplicate Nonce with Dead Nonce List
   bool hasDuplicateNonceInDnl = m_deadNonceList.has(interest.getName(), nonce);
@@ -302,13 +302,13 @@ Forwarder::onIncomingData(const Data& data, const FaceEndpoint& ingress)
   NFD_LOG_DEBUG("onIncomingData in=" << ingress << " data=" << data.getName());
 
   // /localhost scope control
-  bool isViolatingLocalhost = ingress.face.getScope() == ndn::nfd::FACE_SCOPE_NON_LOCAL &&
-                              scope_prefix::LOCALHOST.isPrefixOf(data.getName());
-  if (isViolatingLocalhost) {
-    NFD_LOG_DEBUG("onIncomingData in=" << ingress << " data=" << data.getName() << " violates /localhost");
-    // drop
-    return;
-  }
+  /* bool isViolatingLocalhost = ingress.face.getScope() == ndn::nfd::FACE_SCOPE_NON_LOCAL && */
+  /*                             scope_prefix::LOCALHOST.isPrefixOf(data.getName()); */
+  /* if (isViolatingLocalhost) { */
+  /*   NFD_LOG_DEBUG("onIncomingData in=" << ingress << " data=" << data.getName() << " violates /localhost"); */
+  /*   // drop */
+  /*   return; */
+  /* } */
 
   // PIT match
   pit::DataMatchResult pitMatches = m_pit.findAllDataMatches(data);
@@ -411,15 +411,15 @@ Forwarder::onOutgoingData(const Data& data, Face& egress)
     return false;
   }
 
-  // /localhost scope control
-  bool isViolatingLocalhost = egress.getScope() == ndn::nfd::FACE_SCOPE_NON_LOCAL &&
-                              scope_prefix::LOCALHOST.isPrefixOf(data.getName());
-  if (isViolatingLocalhost) {
-    NFD_LOG_DEBUG("onOutgoingData out=" << egress.getId() << " data=" << data.getName()
-                  << " violates /localhost");
-    // drop
-    return false;
-  }
+  /* // /localhost scope control */
+  /* bool isViolatingLocalhost = egress.getScope() == ndn::nfd::FACE_SCOPE_NON_LOCAL && */
+  /*                             scope_prefix::LOCALHOST.isPrefixOf(data.getName()); */
+  /* if (isViolatingLocalhost) { */
+  /*   NFD_LOG_DEBUG("onOutgoingData out=" << egress.getId() << " data=" << data.getName() */
+  /*                 << " violates /localhost"); */
+  /*   // drop */
+  /*   return false; */
+  /* } */
 
   NFD_LOG_DEBUG("onOutgoingData out=" << egress.getId() << " data=" << data.getName());
 
